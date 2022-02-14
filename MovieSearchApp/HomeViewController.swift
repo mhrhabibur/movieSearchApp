@@ -37,10 +37,17 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath)
-    
-        cell.textLabel?.text = movieList[indexPath.row].title
-        cell.detailTextLabel?.text = movieList[indexPath.row].year
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieViewCell
+        let name = movieList[indexPath.row]
+        cell.movieTitle.text = name.title
+        cell.releasedYear.text = name.year
+        
+        let imageUrl = URL(string: name.poster)!
+
+        let imageData = try! Data(contentsOf: imageUrl)
+
+        cell.moviePoster.image = UIImage(data: imageData)
+        
         return cell
     }
     
