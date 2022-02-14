@@ -67,7 +67,17 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func submitSearch(answer: String) {
         if answer != "" && !answer.hasSuffix(" "){
             
-            movieManager.fetchData(movieName: answer){ movie, error in
+            var myAnswer: String = ""
+            
+            for char in answer {
+                if char.isLetter {
+                    myAnswer.append(char)
+                } else {
+                    break
+                }
+            }
+            
+            movieManager.fetchData(movieName: myAnswer){ movie, error in
                 if let myMovieList = movie {
                     self.movieList = myMovieList.search
                     DispatchQueue.main.async {
